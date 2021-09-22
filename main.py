@@ -57,10 +57,11 @@ def file_rotation(file_list, file_result):
                 counter += 1
             dict_counter[file_name] = counter
     for file_name, lines in sorted_dict(dict_counter).items():
-        with open(file_result, 'w', encoding='utf-8') as file_:
-            file_.write(f'{file_name}\n')
-            file_.write(f'{str(lines)}\n')
-            file_.write(line)
+        with open(file_name, encoding='utf-8') as file, open(file_result, 'a', encoding='utf-8') as file_:
+                file_.write(f'{file_name}\n')
+                file_.write(f'{str(lines)}\n')
+                for line in file:
+                    file_.write(line)
 
 def sorted_dict(dict):
     sort_dict = {}
@@ -71,8 +72,5 @@ def sorted_dict(dict):
                 sort_dict[key] = dict[key]
                 break
     return sort_dict
-
-
-
 
 file_rotation(['file_1.txt', 'file_2.txt', 'file_3.txt'], 'result_file.txt')
