@@ -1,3 +1,5 @@
+from pprint import pprint
+
 def convert_to_dict(file_name: str) -> dict:
     result: dict = dict()
 
@@ -15,5 +17,30 @@ def convert_to_dict(file_name: str) -> dict:
             file.readline()
     return result
 
-result_dict = convert_to_dict('menu.txt')
-print(result_dict)
+
+def get_shop_list_by_dishes(dishes, person_count):
+    menu = convert_to_dict('menu.txt')
+    order = {}
+    list_keys = menu.keys()
+    for key in list_keys:
+        for dish in dishes:
+            if key == dish:
+                ingredients_list = menu[key]
+                for dict in ingredients_list:
+                    for key, value in dict.items():
+                        if key == 'name':
+                            key_ = value
+                            double_dict = {}
+                            order[key_] = double_dict
+                        elif key == 'quantity':
+                            double_dict[key] = value * person_count
+                        else:
+                            double_dict[key] = value
+
+    pprint(order)
+
+
+
+get_shop_list_by_dishes(['Утка по-пекински', 'Омлет'], 2)
+
+
