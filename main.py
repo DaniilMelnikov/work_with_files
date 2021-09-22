@@ -46,8 +46,33 @@ def get_shop_list_by_dishes(dishes, person_count):
                     order[key_] = double_dict
     return pprint(order)
 
+# get_shop_list_by_dishes(['Утка по-пекински', 'Омлет', 'Чай'], 2)
+
+def file_rotation(file_list, file_result):
+    dict_counter = {}
+    for file_name in file_list:
+        counter = 0
+        with open(file_name, encoding='utf-8') as file:
+            for line in file:
+                counter += 1
+            dict_counter[file_name] = counter
+    for file_name, lines in sorted_dict(dict_counter).items():
+        with open(file_result, 'w', encoding='utf-8') as file_:
+            file_.write(f'{file_name}\n')
+            file_.write(f'{str(lines)}\n')
+            file_.write(line)
+
+def sorted_dict(dict):
+    sort_dict = {}
+    sort_values = sorted(dict.values())
+    for value in sort_values:
+        for key in dict.keys():
+            if dict[key] == value:
+                sort_dict[key] = dict[key]
+                break
+    return sort_dict
 
 
-get_shop_list_by_dishes(['Утка по-пекински', 'Омлет', 'Чай'], 2)
 
 
+file_rotation(['file_1.txt', 'file_2.txt', 'file_3.txt'], 'result_file.txt')
