@@ -31,16 +31,23 @@ def get_shop_list_by_dishes(dishes, person_count):
                         if key == 'name':
                             key_ = value
                             double_dict = {}
-                            order[key_] = double_dict
                         elif key == 'quantity':
-                            double_dict[key] = value * person_count
+                            if order == {}:
+                                double_dict[key] = value * person_count
+                            else:
+                                for keys in order.keys():
+                                    if keys == key_:
+                                        double_dict[key] += value
+                                        break
+                                    else:
+                                        double_dict[key] = value * person_count
                         else:
                             double_dict[key] = value
+                    order[key_] = double_dict
+    return pprint(order)
 
-    pprint(order)
 
 
-
-get_shop_list_by_dishes(['Утка по-пекински', 'Омлет'], 2)
+get_shop_list_by_dishes(['Утка по-пекински', 'Омлет', 'Чай'], 2)
 
 
